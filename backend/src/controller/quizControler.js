@@ -3,7 +3,7 @@ import Quizquestion from "../Models/QuizSchema.js";
 import User from "../Models/userSchema.js";
 
 
-
+//============================create quiz=======Admin============
 const createQuiz = asyncHandler(async (req,res)=>{
     const {id, questions} = req.body
         console.log("req",req);
@@ -25,6 +25,18 @@ const createQuiz = asyncHandler(async (req,res)=>{
             res.status(500).json({error: err.message})
         }
 }) 
+//=====================get quizs======== for Admin===========
+const getallQuizs = asyncHandler(async (req,res)=>{
+    const quizs = await Quizquestion.find()
+    if (!quizs) {
+        return res.status(404).json({ error: 'Quiz not found' });
+      }
+    
+      console.log("quizs",quizs);
+    return res
+    .status(200)
+    .json(quizs)
+})
 
 
 //============================create user===================
@@ -119,7 +131,7 @@ const getCurrentUser = asyncHandler(async (req,res)=>{
     .status(200)
     .json(user)
 })
-
+//===================admin ===============get all user===================
 const getAlluser = asyncHandler(async (req,res)=>{
     const users = await User.find()
     if (!users) {
@@ -133,7 +145,7 @@ const getAlluser = asyncHandler(async (req,res)=>{
 })
 
 
-export {createQuiz,createUser,getCurrentUser,updateUserActivity,getAlluser}
+export {createQuiz,createUser,getCurrentUser,updateUserActivity,getAlluser,getallQuizs}
 
 
 
