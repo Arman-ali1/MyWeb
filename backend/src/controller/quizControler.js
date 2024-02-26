@@ -120,9 +120,20 @@ const getCurrentUser = asyncHandler(async (req,res)=>{
     .json(user)
 })
 
+const getAlluser = asyncHandler(async (req,res)=>{
+    const users = await User.find()
+    if (!users) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+    
+      console.log("users",users);
+    return res
+    .status(200)
+    .json(users)
+})
 
 
-export {createQuiz,createUser,getCurrentUser,updateUserActivity}
+export {createQuiz,createUser,getCurrentUser,updateUserActivity,getAlluser}
 
 
 
