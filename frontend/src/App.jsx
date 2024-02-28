@@ -22,7 +22,7 @@ function App() {
 
   const email = "arman@gmail.com";
   // get all user Api call
-  const url = "http://localhost:8000/api/v1/quiz/getCurrentUser";
+  const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getCurrentUser";
   const[userAns1,setUserAns1]=useState('a')
   const[userAns2,setUserAns2]=useState('a')
   const[userAns3,setUserAns3]=useState('a')
