@@ -7,7 +7,7 @@ import Solutions from "./Solutions.jsx";
 function Result() {
   const[score,setScore]=useState(0)
   const [quizdetails, setQuizdetails] = useState([]);
-  const url = "http://localhost:8000/api/v1/quiz/getalluser";
+  const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getalluser";
   const userdata = {
     name: "shivam",
     contact: "1233",
