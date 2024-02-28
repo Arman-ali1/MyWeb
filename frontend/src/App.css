@@ -1,0 +1,28 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+  body{
+    /* background: #030710; */
+    /* background: #030715; */
+    /* background: #030715; */
+    color: aliceblue;
+    /* color: black; */
+    max-width: 100%;
+    overflow-x: hidden;
+    
+  }
+
+  /* .submitbtn::after {
+    filter: blur(3.5rem);
+  } */
+  
+  @keyframes rotation {
+    0% {
+      --gradient-angle: 0deg;
+    }
+    100% {
+      --gradient-angle: 360deg;
+    }
+  }
