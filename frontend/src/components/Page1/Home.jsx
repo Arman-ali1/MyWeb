@@ -18,8 +18,9 @@ function Home() {
     
     try {
       //axios syantax
+      
         await axios
-        .post("http://localhost:8000/api/v1/quiz/createuser",{name,contact,email,timeTaken,questions})
+        .post("https://myweb-2t4i.onrender.com/api/v1/quiz/createuser",{name,contact,email,timeTaken,questions})
         .then((res) => {
           console.log("data send successfully", res.data);
           navigate("/contest")
