@@ -125,7 +125,7 @@ const getCurrentUser = asyncHandler(async (req,res)=>{
     if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvv",user.data[0].questions[4]);
+    // console.log("vvvvvvvvvvvvvvvvvvvvvvvv",user.data[0].questions[4]);
     //   console.log("user",user);
     return res
     .status(200)
