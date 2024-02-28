@@ -7,7 +7,7 @@ import Solutions from "./Solutions.jsx";
 function Result() {
   const[score,setScore]=useState(0)
   const [quizdetails, setQuizdetails] = useState([]);
-  const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getalluser";
+  const url = "http://localhost:8000/api/v1/quiz/getalluser";
   const userdata = {
     name: "shivam",
     contact: "1233",
@@ -15,7 +15,7 @@ function Result() {
     questions: 1,
     timeTaken: 4,
   };
-  
+  let myarr=[0,0,0,0,0]
 // get all user Api call 
 useEffect(()=>{
   axios.get(url)
@@ -24,8 +24,8 @@ useEffect(()=>{
     let scor=0;
     for(let i=0;i<5;i++){
       if(res.data[0].questions[i].userAns!=='not-marked'){
-        // console.log("correctAns",res.data[0].questions[i].options[i].correctAns);
-        if(res.data[0].questions[i].userAns===res.data[0].questions[i].options[i].correctAns)
+        console.log("correctAns",res.data[0].questions[i].correctAns);
+        if(res.data[0].questions[i].userAns===res.data[0].questions[i].correctAns)
         scor=scor+1;
       }
       setScore(scor)
@@ -35,6 +35,7 @@ useEffect(()=>{
     }
 
     console.log("scoreeeeeeeeeeeeeeeeeeeeeeeeeeee",score);
+    return 
   })
 
 },[])
@@ -63,7 +64,7 @@ useEffect(()=>{
         {/* solutions */}
         {quizdetails.map((paper,index)=>(
         <Solutions key={index} userAns=
-        {paper.userAns} quesNumber={paper.question} options={paper.options} no={index} />
+        {paper.userAns} quesNumber={paper.question} options={paper.correctAns} no={index} />
        ))}
       </div>
       

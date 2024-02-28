@@ -29,11 +29,7 @@ const quizSchema = new Schema(
                         option4:{
                             type:String,
                             required: true,
-                        },
-                        correctAns:{
-                            type:String,
-                            required: true,
-                        },
+                        }
                         
                         
                     }
@@ -43,6 +39,11 @@ const quizSchema = new Schema(
                     enum: ["not-marked", "A", "B","C","D"],
                     default: "not-marked",
                   },
+                  correctAns:{
+                    type:String,
+                    required: true,
+                },
+                
             }
         ]
            

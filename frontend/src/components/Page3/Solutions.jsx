@@ -20,7 +20,7 @@ function Solutions({ userAns,quesNumber, no, options }) {
           </div>
           <div className="grid grid-cols-12 mb-5 ">
             <p htmlFor="option1" className="col-span-11">
-             correct answer :  {options[0].correctAns}  
+             correct answer :  {options}  
             </p>
           </div>
 
