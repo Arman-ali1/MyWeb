@@ -6,9 +6,9 @@ import User from "../Models/userSchema.js";
 //============================create quiz=======Admin============
 const createQuiz = asyncHandler(async (req,res)=>{
     const {id, questions} = req.body
-        console.log("req",req);
-        console.log("id",id);
-        console.log("questions",questions);
+        // console.log("req",req);
+        // console.log("id",id);
+        // console.log("questions",questions);
         if (!id || !questions){
             return res.status(400).json({msg: 'Please enter all fields'})
         }
@@ -32,7 +32,7 @@ const getallQuizs = asyncHandler(async (req,res)=>{
         return res.status(404).json({ error: 'Quiz not found' });
       }
     
-      console.log("quizs",quizs);
+    //   console.log("quizs",quizs);
     return res
     .status(200)
     .json(quizs)
@@ -55,7 +55,7 @@ const createUser = asyncHandler(async (req,res)=>{
         if(!quizQuestion){
             return res.status(400).json({ message: 'Question not found' });
         }
-        console.log(quizQuestion.questions[0].question);
+        // console.log(quizQuestion.questions[0].question);
         try{
         
             const newUser = new User({
@@ -79,7 +79,7 @@ const createUser = asyncHandler(async (req,res)=>{
 const updateUserActivity = asyncHandler(async (req,res)=>{
     const {email,userAnswers} = req.body
     const numberOfProducts = Object.keys(userAnswers).length
-    console.log(numberOfProducts,email);
+    // console.log(numberOfProducts,email);
     if(numberOfProducts!==5){
         return res.status(400).json({ message: 'Invalid Activity provite all entity' });
     }
@@ -93,15 +93,15 @@ const updateUserActivity = asyncHandler(async (req,res)=>{
       return res.status(404).json({ error: 'User not found' });
     }
     
-    console.log("userQuesFind",user.questions);
+    // console.log("userQuesFind",user.questions);
     
         for(let i=0;i<5;i++){
             user.questions[i].userAns=userAnswers[i]
         }
-      console.log(user.questions);
+    //   console.log(user.questions);
 
       user.questions.forEach(element => {
-        console.log(element.userAns);
+        // console.log(element.userAns);
       });
     const result=await User.updateOne(
         { _id: user._id },
@@ -125,8 +125,8 @@ const getCurrentUser = asyncHandler(async (req,res)=>{
     if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-    
-      console.log("user",user);
+    console.log("vvvvvvvvvvvvvvvvvvvvvvvv",user.data[0].questions[4]);
+    //   console.log("user",user);
     return res
     .status(200)
     .json(user)
@@ -137,8 +137,16 @@ const getAlluser = asyncHandler(async (req,res)=>{
     if (!users) {
         return res.status(404).json({ error: 'User not found' });
       }
-    
-      console.log("users",users);
+    //   console.log("vvvvvvvvvvvvvvvvvvvvvvvv",users[0].questions);
+    let score=0
+      for(let a=0;a<5;a++){
+        console.log("cccccccccccccccccc",users[0].questions[a].userAns);
+        if(users[0].questions[a].userAns!=='not-marked'){
+            score=score+1
+        }
+      }
+    //   users[0].scr=score
+    //   console.log("users score",users[0].scr);
     return res
     .status(200)
     .json(users)

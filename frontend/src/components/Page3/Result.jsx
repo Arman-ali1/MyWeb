@@ -1,10 +1,11 @@
 
 // import Question from "./../Question/Question.jsx";
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import axios from "axios";
 import Solutions from "./Solutions.jsx";
 
 function Result() {
+  const[score,setScore]=useState(0)
   const [quizdetails, setQuizdetails] = useState([]);
   const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getalluser";
   const userdata = {
@@ -16,8 +17,27 @@ function Result() {
   };
   
 // get all user Api call 
-    axios.get(url)
-    .then((res)=>(setQuizdetails(res.data[0].questions)))
+useEffect(()=>{
+  axios.get(url)
+  .then((res)=>{(setQuizdetails(res.data[0].questions))
+    console.log(res.data[0].questions[0].options[0].correctAns);
+    let scor=0;
+    for(let i=0;i<5;i++){
+      if(res.data[0].questions[i].userAns!=='not-marked'){
+        // console.log("correctAns",res.data[0].questions[i].options[i].correctAns);
+        if(res.data[0].questions[i].userAns===res.data[0].questions[i].options[i].correctAns)
+        scor=scor+1;
+      }
+      setScore(scor)
+      // console.log(res.data[0].questions[i].userAns);
+      console.log(scor);
+
+    }
+
+    console.log("scoreeeeeeeeeeeeeeeeeeeeeeeeeeee",score);
+  })
+
+},[])
 
   return (
     <div className=" bg-slate-400  min-w-[100%]  pt-16 pb-5">
@@ -28,7 +48,7 @@ function Result() {
       </div>
       <div className="p-3  ">
         <h3 className="outline  text-4xl p-3 text-center  font-extrabold  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-slate-800">
-          Your Score : 5 / 5
+          Your Score : {score} / 5
         </h3>
       </div>
 

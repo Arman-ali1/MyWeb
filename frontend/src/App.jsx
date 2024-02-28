@@ -20,8 +20,9 @@ function App() {
   const [opt3, setopt3] = useState([{}]);
   const [opt4, setopt4] = useState([{}]);
 
+  const email = "arman@gmail.com";
   // get all user Api call
-  const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getalluser";
+  const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getCurrentUser";
   const[userAns1,setUserAns1]=useState('a')
   const[userAns2,setUserAns2]=useState('a')
   const[userAns3,setUserAns3]=useState('a')
@@ -29,23 +30,25 @@ function App() {
   const[userAns5,setUserAns5]=useState('a')
   useEffect(() => {
     axios
-      .get(url)
+      .post((url), {email})
       .then((res) => {
-        setQuizdetails(res.data[0].questions);
-        return res.data[0].questions;
+        // console.log("0000000000000000000000000000000000000",res.data.questions[0]);
+        // setQuizdetails(res.data[0].questions);
+        return res.data;
       })
       .then((res) => {
-        setQues0(res[0].question);
-        setQues1(res[1].question);
-        setQues2(res[2].question);
-        setQues3(res[3].question);
-        setQues4(res[4].question);
+        // console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",res.questions[0].question);
+        setQues0(res.questions[0].question);
+        setQues1(res.questions[1].question);
+        setQues2(res.questions[2].question);
+        setQues3(res.questions[3].question);
+        setQues4(res.questions[4].question);
 
-        setopt0(res[0].options);
-        setopt1(res[1].options);
-        setopt2(res[2].options);
-        setopt3(res[3].options);
-        setopt4(res[4].options);
+        setopt0(res.questions[0].options);
+        setopt1(res.questions[1].options);
+        setopt2(res.questions[2].options);
+        setopt3(res.questions[3].options);
+        setopt4(res.questions[4].options);
       });
   }, [setQuizdetails]);
 
@@ -92,7 +95,6 @@ function App() {
         userAnswers[i]='not-marked'
       }
     }
-    const email = "arman@gmail.com";
     console.log(userAnswers);
     const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/update-quiz";
      await axios.post((url), {email, userAnswers})
@@ -149,7 +151,7 @@ const submitionTime = "February 27, 2024 17:39:00";
         setTimerMinutes(minutes);
         setTimerSeconds(seconds);
         if(seconds===0 && minutes===0 ){
-          navigate('/contest/result');
+          handleSubmitpaper();
         }
         // countdownDate=countdownDate+1000
       }
