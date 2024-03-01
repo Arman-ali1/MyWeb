@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState ,useRef} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 // import Timer from "./components/Timer/Timer";
 
 import check from "./assets/check.svg";
@@ -20,7 +20,11 @@ function App() {
   const [opt3, setopt3] = useState([{}]);
   const [opt4, setopt4] = useState([{}]);
 
-  const email = "arman@gmail.com";
+  const location = useLocation();
+    const userData = location.state?.UserStatus || {};
+    let login=userData.lgn;
+console.log("loginnnnnnnnnnnnnn",login);
+  // const email = "one@gmail.com";
   // get all user Api call
   const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getCurrentUser";
   const[userAns1,setUserAns1]=useState('a')
@@ -30,7 +34,7 @@ function App() {
   const[userAns5,setUserAns5]=useState('a')
   useEffect(() => {
     axios
-      .post((url), {email})
+      .post((url), {email:login})
       .then((res) => {
         // console.log("0000000000000000000000000000000000000",res.data.questions[0]);
         // setQuizdetails(res.data[0].questions);
@@ -88,6 +92,11 @@ function App() {
   const [checkmark5 ,setCheckmark5] = useState([0, 0, 0, 0, 0])
 
   const handleSubmitpaper = async(e) => {
+
+    const UserStatus={
+      lgn:login
+    }
+      // navigate('/contest',{ state: { UserStatus } });
     // e.preventDefault();
     const userAnswers=[userAns1,userAns2,userAns3,userAns4,userAns5]
     for(let i=0;i<5;i++){
@@ -97,8 +106,8 @@ function App() {
     }
     console.log(userAnswers);
     const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/update-quiz";
-     await axios.post((url), {email, userAnswers})
-       .then(()=>{navigate("/contest/result")})
+     await axios.post((url), {email:login, userAnswers})
+       .then(()=>{navigate("/contest/result",{ state: { UserStatus } })})
        .catch((error)=>console.log("error during calling save api",error))
   
   };

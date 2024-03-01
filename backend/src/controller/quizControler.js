@@ -120,8 +120,10 @@ const updateUserActivity = asyncHandler(async (req,res)=>{
 //============================get current user===================
 const getCurrentUser = asyncHandler(async (req,res)=>{
     const {email} = req.body;
+    
     console.log(email);
     const user = await User.findOne({ email })
+    console.log("user",user);
     if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }

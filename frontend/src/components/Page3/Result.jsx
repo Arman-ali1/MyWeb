@@ -3,11 +3,18 @@
 import {  useEffect, useState } from "react";
 import axios from "axios";
 import Solutions from "./Solutions.jsx";
+import { useLocation } from "react-router-dom";
 
 function Result() {
+
+
+  const location = useLocation();
+    const userData = location.state?.UserStatus || {};
+    let login=userData.lgn;
+console.log("loginnnnnnnnnnnnnn",login);
   const[score,setScore]=useState(0)
   const [quizdetails, setQuizdetails] = useState([]);
-  const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getalluser";
+  const url = "https://myweb-2t4i.onrender.com/api/v1/quiz/getcurrentuser";
   const userdata = {
     name: "shivam",
     contact: "1233",
@@ -16,16 +23,20 @@ function Result() {
     timeTaken: 4,
   };
   let myarr=[0,0,0,0,0]
+  let em="arman@gmail.com"
 // get all user Api call 
+// let login="three"
 useEffect(()=>{
-  axios.get(url)
-  .then((res)=>{(setQuizdetails(res.data[0].questions))
-    console.log(res.data[0].questions[0].options[0].correctAns);
+  axios.post((url), {email:login?login:em})
+  .then((res)=>{
+    (setQuizdetails(res.data.questions))
+    // console.log(res.data[0].questions[0].options[0].correctAns);
+    console.log("res.data[0].questions",res.data);
     let scor=0;
     for(let i=0;i<5;i++){
-      if(res.data[0].questions[i].userAns!=='not-marked'){
-        console.log("correctAns",res.data[0].questions[i].correctAns);
-        if(res.data[0].questions[i].userAns===res.data[0].questions[i].correctAns)
+      if(res.data.questions[i].userAns!=='not-marked'){
+        console.log("correctAns",res.data.questions[i].correctAns);
+        if(res.data.questions[i].userAns===res.data.questions[i].correctAns)
         scor=scor+1;
       }
       setScore(scor)

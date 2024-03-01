@@ -8,7 +8,7 @@ function Home() {
   const [email, setEmail] = useState();
   const[flage,setFlage]=useState()
   const timeTaken = 4;
-  const questions= 1;
+  const questions= 2;
 
   const navigate = useNavigate();
 
@@ -23,7 +23,11 @@ function Home() {
         .post("https://myweb-2t4i.onrender.com/api/v1/quiz/createuser",{name,contact,email,timeTaken,questions})
         .then((res) => {
           console.log("data send successfully", res.data);
-          navigate("/contest")
+          // navigate("/contest")
+          const UserStatus={
+            lgn:email
+          }
+            navigate('/contest',{ state: { UserStatus } });
         //   navigate("/getcurrentuser");
         });
     } catch (error) {
